@@ -1,55 +1,60 @@
 package com.bridgelabz;
 
 public class EmpWageBuilder {
-	public static final int IS_PART_TIME=1;
-	public static final int IS_FULL_TIME=2;
-	private final String company;
-	private final int empRatePerHour;
-	private final int numOfWorkingDays;
-	private final int maxHoursPerMonth;
-	private int totalEmpWage;
-	public EmpWageBuilder(String company,int empRatePerHour,int numOfWorkingDays,int maxHoursPerMonth)
-	{
-		this.company=company;
-		this.empRatePerHour=empRatePerHour;
-		this.numOfWorkingDays=numOfWorkingDays;
-		this.maxHoursPerMonth=maxHoursPerMonth;
+      public int numOfCompanies = 0;
+	
+	CompanyEmpWage EmpWageArray[];
+	public EmpWageBuilder() {	
+		EmpWageArray = new CompanyEmpWage[5];
 	}
-	public void computeWage() {
-		int empHrs = 0, totalEmpHrs=0, totalWorkingDays=0;
-		while (totalEmpHrs<=maxHoursPerMonth && totalWorkingDays < numOfWorkingDays)
+	void addComEmpWage(String company, int EMP_RATE_PER_HOUR, int NO_OF_WORKING_DAYS, int MAX_HRS_IN_MONTH)
+	{
+		EmpWageArray[numOfCompanies] = new CompanyEmpWage(company, EMP_RATE_PER_HOUR, NO_OF_WORKING_DAYS, MAX_HRS_IN_MONTH);
+		numOfCompanies++;
+	}
+	void computeEmpWage() {
+		for (int i = 0; i < numOfCompanies; i++)
 		{
-			 totalWorkingDays++;
-			 int empCheck=(int) Math.floor(Math.random() * 10) %3;
-			 switch (empCheck)
-			 {
-			 case IS_PART_TIME:
-				 empHrs = 4;
-				 break;
-			 case IS_FULL_TIME:
-				 empHrs =8;
-				 break;
-			default:
-				empHrs =0;
-				
+			EmployeeW(EmpWageArray[i]);
 		}
-			 totalEmpHrs += empHrs;
-			 System.out.println("Day: " + totalWorkingDays + " Emp Hr: " + empHrs);
-    
-		}
-	  totalEmpWage = totalEmpHrs * empRatePerHour;
 	}
-	public String tosString()
+	
+	private void EmployeeW(CompanyEmpWage EmpWage)
 	{
-		return "Total emp wage for company " + company + " is :" + totalEmpWage;
+				int empHrs = 0;
+				int totalempHrs = 0;
+				int totalWorkingDays = 0;
+			while (totalempHrs < EmpWage.MAX_HRS_IN_MONTH && totalWorkingDays < EmpWage.NO_OF_WORKING_DAYS)
+			{
+				totalWorkingDays++;
+				int empCheck = (int) (Math.floor(Math.random() * 10) % 3);
+		
+				switch (empCheck)
+				{
+				case 1:
+					empHrs = 8;
+					break;
+				case 2:
+					empHrs = 4;
+					break;
+				default:
+					empHrs = 0;
+				}
+				totalempHrs += empHrs;
+				System.out.println("Day " + totalWorkingDays + "\tEMP HRS: " + empHrs);
+			}	
+			int totalempWage =  totalempHrs * EmpWage.EMP_RATE_PER_HOUR;
+			System.out.println("Total Employee Wage for Company " + EmpWage.Company + " is : " + totalempWage);
 	}
-	public static void main(String[] args) {
-	EmpWageBuilder google=new EmpWageBuilder("Google",20,4,10);
+public static void main(String[] args)
+{
+	EmpWageBuilder cmp=new EmpWageBuilder();
+	cmp.addComEmpWage("TCS",20,20,160);
 
-	EmpWageBuilder Tesla=new EmpWageBuilder("Tesla",10,8,30);
-	google.computeWage();
-	System.out.println(google);
-	Tesla.computeWage();
-	System.out.println(Tesla);
-	}
+	cmp.addComEmpWage("HCL",25,23,120);
+	
+	cmp.addComEmpWage("Deliotte",30,24,110);
+	
+	cmp.computeEmpWage();
+}
 }
