@@ -1,18 +1,20 @@
 package com.bridgelabz;
 
-public class EmpWageBuilder {
-      public int numOfCompanies = 0;
+public class EmpWageBuilder implements InterfaceEmpWage {
+   public int numOfCompanies = 0;
 	
 	CompanyEmpWage EmpWageArray[];
 	public EmpWageBuilder() {	
 		EmpWageArray = new CompanyEmpWage[5];
 	}
-	void addComEmpWage(String company, int EMP_RATE_PER_HOUR, int NO_OF_WORKING_DAYS, int MAX_HRS_IN_MONTH)
+	@Override
+	public void addComEmpWage(String company, int EMP_RATE_PER_HOUR, int NO_OF_WORKING_DAYS, int MAX_HRS_IN_MONTH)
 	{
 		EmpWageArray[numOfCompanies] = new CompanyEmpWage(company, EMP_RATE_PER_HOUR, NO_OF_WORKING_DAYS, MAX_HRS_IN_MONTH);
 		numOfCompanies++;
 	}
-	void computeEmpWage() {
+	@Override
+	public void computeEmpWage() {
 		for (int i = 0; i < numOfCompanies; i++)
 		{
 			EmployeeW(EmpWageArray[i]);
@@ -48,12 +50,14 @@ public class EmpWageBuilder {
 	}
 public static void main(String[] args)
 {
-	EmpWageBuilder cmp=new EmpWageBuilder();
-	cmp.addComEmpWage("TCS",20,20,160);
 
-	cmp.addComEmpWage("HCL",25,23,120);
+
+	InterfaceEmpWage cmp = new EmpWageBuilder();
+	cmp.addComEmpWage("Google",20,20,160);
+
+	cmp.addComEmpWage("Microsoft",25,23,120);
 	
-	cmp.addComEmpWage("Deliotte",30,24,110);
+	cmp.addComEmpWage("Tesla",30,24,110);
 	
 	cmp.computeEmpWage();
 }
