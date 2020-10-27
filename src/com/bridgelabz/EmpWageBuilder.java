@@ -1,23 +1,26 @@
 package com.bridgelabz;
-
+import java.util.ArrayList;
 public class EmpWageBuilder implements InterfaceEmpWage {
-   public int numOfCompanies = 0;
+public int numOfCompanies = 0;
 	
-	CompanyEmpWage EmpWageArray[];
+	private ArrayList<CompanyEmpWage> compEmpWageArrayList;
+	
 	public EmpWageBuilder() {	
-		EmpWageArray = new CompanyEmpWage[5];
+		compEmpWageArrayList = new ArrayList<>();
 	}
 	@Override
 	public void addComEmpWage(String company, int EMP_RATE_PER_HOUR, int NO_OF_WORKING_DAYS, int MAX_HRS_IN_MONTH)
 	{
-		EmpWageArray[numOfCompanies] = new CompanyEmpWage(company, EMP_RATE_PER_HOUR, NO_OF_WORKING_DAYS, MAX_HRS_IN_MONTH);
-		numOfCompanies++;
+		CompanyEmpWage CEmpWage = new CompanyEmpWage(company, EMP_RATE_PER_HOUR, NO_OF_WORKING_DAYS, MAX_HRS_IN_MONTH);
+		compEmpWageArrayList.add(CEmpWage);
 	}
 	@Override
 	public void computeEmpWage() {
-		for (int i = 0; i < numOfCompanies; i++)
+		for (int i = 0; i < compEmpWageArrayList.size(); i++)
 		{
-			EmployeeW(EmpWageArray[i]);
+			CompanyEmpWage CEmpWage = compEmpWageArrayList.get(i);
+			EmployeeW(CEmpWage);
+			
 		}
 	}
 	
