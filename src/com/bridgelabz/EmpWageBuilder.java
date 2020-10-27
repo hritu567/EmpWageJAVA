@@ -1,13 +1,15 @@
 package com.bridgelabz;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 public class EmpWageBuilder implements InterfaceEmpWage {
-    public int numOfCompanies = 0;
+public int numOfCompanies = 0;
 	
 	private HashMap<Integer, Double> compEmpWageHashMap;
 	private ArrayList<CompanyEmpWage> compEmpWageArrayList;
 	
-	public EmpWageBuilder() {
+	public EmpWageBuilder()
+ 	{
 		compEmpWageHashMap = new HashMap<>();
 		compEmpWageArrayList = new ArrayList<>();
 	}
@@ -57,21 +59,40 @@ public class EmpWageBuilder implements InterfaceEmpWage {
 			}
 			for (int j = 1; j <= compEmpWageHashMap.size(); j++) {
 
-				System.out.println("Day " + j + " - " + compEmpWageHashMap.get(j));
+				System.out.println("Day " + j + ", DailyWage " + compEmpWageHashMap.get(j));
 			}
 			int totalempWage =  totalempHrs * EmpWage.EMP_RATE_PER_HOUR;
 			System.out.println("Total Employee Wage for Company " + EmpWage.Company + " is : " + totalempWage);
 	}
 public static void main(String[] args)
 {
-
+	int opt;
+	int a=1;
+	System.out.println("Welcome to Employee Wage Computation Program");
+	Scanner sc = new Scanner(System.in);
+	
 	InterfaceEmpWage cmp = new EmpWageBuilder();
-	cmp.addComEmpWage("Google",20,20,160);
-
-	cmp.addComEmpWage("Microsoft",25,23,120);
-	
-	cmp.addComEmpWage("Tesla",30,24,110);
-	
-	cmp.computeEmpWage();
+	while (a == 1)
+			{
+				System.out.println("Enter the choice 1-Google, 2-Microsoft, 3-Tesla, 4-exit");
+				opt = sc.nextInt();
+				if (opt == 1)
+				{
+					cmp.addComEmpWage("Google",20,20,160);
+				}
+				else if (opt == 2)
+				{
+					cmp.addComEmpWage("Microsoft",25,23,120);
+				}
+				else if (opt == 3)
+				{
+					cmp.addComEmpWage("Tesla",30,24,110);
+				}
+				else
+				{
+					System.exit(0);
+				}
+				cmp.computeEmpWage();
+			}
 }
 }
